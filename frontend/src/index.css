@@ -966,13 +966,9 @@ button.ghost {
 .landing-header {
   margin-bottom: 4rem;
   position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
 }
 
 .header-center {
-  flex: 1;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -980,6 +976,9 @@ button.ghost {
 }
 
 .landing-cta-top {
+  position: absolute;
+  top: 0;
+  right: 0;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
