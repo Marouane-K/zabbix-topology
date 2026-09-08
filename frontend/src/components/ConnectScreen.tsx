@@ -56,7 +56,7 @@ export function ConnectScreen({ onConnected, onBack }: Props) {
       <div className="connect-backdrop" aria-hidden />
       <div className="connect-card">
         <button className="connect-back-button" onClick={onBack}>
-          <ArrowLeft size={20} />
+          <ArrowLeft size={16} />
           <span>Revenir à l'accueil</span>
         </button>
         <div className="connect-hero">
