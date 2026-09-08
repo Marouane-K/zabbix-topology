@@ -1,10 +1,42 @@
-# Zabbix Topology
+# TRANSMAP Zabbix Topology
 
 Application web de **visualisation intelligente de topologie réseau** basée sur l’API Zabbix.
 
-Emplacement : `E:\Stage Transdev\zabbix-topology`
+## 🚀 Démarrage rapide avec Docker (Recommandé)
 
-## Architecture
+### Prérequis
+- Docker Desktop installé sur votre machine
+
+### Installation
+
+1. **Cloner le dépôt**
+```bash
+git clone https://github.com/Marouane-K/zabbix-topology.git
+cd zabbix-topology
+```
+
+2. **Lancer l'application**
+```bash
+docker-compose up --build
+```
+
+3. **Accéder à l'application**
+- Frontend : http://localhost
+- Backend API : http://localhost:8000
+
+### Arrêter l'application
+```bash
+docker-compose down
+```
+
+---
+
+## 📋 Installation manuelle (Sans Docker)
+
+### Prérequis
+- Python 3.10+
+- Node.js 18+
+- npm
 
 ```text
 Zabbix (JSON-RPC)
@@ -14,24 +46,20 @@ FastAPI (Python) — auth, inventaire, topologie, layouts
 React + React Flow + ELK.js — topologie interactive
 ```
 
-## Démarrage rapide
-
 ### 1. Backend
 
 ```powershell
-cd "E:\Stage Transdev\zabbix-topology\backend"
+cd backend
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-copy .env.example .env
 uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
 ### 2. Frontend
 
 ```powershell
-cd "E:\Stage Transdev\zabbix-topology\frontend"
-copy .env.example .env
+cd frontend
 npm install
 npm run dev
 ```
