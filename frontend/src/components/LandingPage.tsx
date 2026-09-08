@@ -1,4 +1,5 @@
-import { ArrowRight, Mail, Zap, Shield, Activity, Globe, Server, Cpu, HardDrive } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Mail, Zap, Shield, Activity, Globe, Server, Cpu, HardDrive, Volume2, VolumeX } from "lucide-react";
 
 const GithubIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -13,8 +14,31 @@ const LinkedinIcon = ({ size = 18 }: { size?: number }) => (
 );
 
 export default function LandingPage({ onContinue }: { onContinue: () => void }) {
+  const [isMuted, setIsMuted] = useState(true);
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
+
   return (
     <div className="landing-page">
+      <video
+        className="landing-video"
+        autoPlay
+        loop
+        muted={isMuted}
+        playsInline
+      >
+        <source src="/hero-video.mp4" type="video/mp4" />
+      </video>
+      <div className="video-overlay" />
+      <button
+        className="sound-toggle"
+        onClick={toggleMute}
+        title={isMuted ? "Activer le son" : "Couper le son"}
+      >
+        {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+      </button>
       <div className="landing-container">
         <div className="landing-content">
           <div className="landing-header">
