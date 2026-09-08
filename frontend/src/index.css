@@ -1113,13 +1113,10 @@ button.ghost {
 .landing-title {
   font-size: 3.5rem;
   font-weight: 800;
-  color: white;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   animation: titleGlow 3s ease-in-out infinite;
 }
 
@@ -1134,18 +1131,19 @@ button.ghost {
 
 .landing-subtitle {
   font-size: 1.25rem;
-  color: #94a3b8;
-  max-width: 600px;
-  margin: 0 auto 1.5rem;
-  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .landing-description {
-  font-size: 1rem;
-  color: #64748b;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
   max-width: 700px;
-  margin: 0 auto;
+  margin: 0 auto 2rem;
   line-height: 1.7;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .landing-features {
