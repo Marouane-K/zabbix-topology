@@ -1,5 +1,3 @@
-<div align="center">
-
 # 🌐 TRANSMAP Zabbix Topology
 
 **Application web de visualisation intelligente de topologie réseau basée sur l'API Zabbix**
@@ -7,7 +5,6 @@
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker)](https://www.docker.com/)
 [![Python](https://img.shields.io/badge/Python-3.11+-green?logo=python)](https://www.python.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green?logo=node.js)](https://nodejs.org/)
-[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 ---
 
@@ -178,5 +175,3 @@ Utilisez le bouton **"Explorer le mode démonstration"** pour découvrir l'inter
 Cette application est en **version de test v1.0**. Des améliorations sont prévues pour les futures versions.
 
 ---
-
-</div>
