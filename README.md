@@ -68,41 +68,66 @@ docker-compose down
 
 ---
 
-## 📋 Installation manuelle (Développeurs)
+## 📋 Installation manuelle (Sans Docker)
+
+**À utiliser si Docker ne fonctionne pas sur votre machine.**
 
 ### Prérequis
-- Python 3.10+
-- Node.js 18+
-- npm
+- [Python 3.10+](https://www.python.org/downloads/)
+- [Node.js 18+](https://nodejs.org/)
+- npm (inclus avec Node.js)
 
-```text
-Zabbix (JSON-RPC)
-        ↓
-FastAPI (Python) — auth, inventaire, topologie, layouts
-        ↓
-React + React Flow + ELK.js — topologie interactive
+### Étapes d'installation
+
+#### 1. Cloner le dépôt
+```bash
+git clone https://github.com/Marouane-K/zabbix-topology.git
+cd zabbix-topology
 ```
 
-#### Backend
+#### 2. Installer le Backend (Python)
 
+**Windows PowerShell** :
+```powershell
+cd backend
+python -m venv venv
+.\venv\Scripts\activate
+pip install -r requirements.txt
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
+
+**Linux/Mac** :
 ```bash
 cd backend
-python -m venv .venv
-source .venv/bin/activate  # Linux/Mac
-# ou .\.venv\Scripts\Activate.ps1  # Windows
+python -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
-uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
-#### Frontend
+#### 3. Installer le Frontend (Node.js)
 
+**Ouvrir un nouveau terminal** et laisser le backend tourner dans le premier.
+
+**Windows PowerShell** :
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+**Linux/Mac** :
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Ouvrir : http://localhost:5173
+#### 4. Accéder à l'application
+- Ouvrez votre navigateur sur : http://localhost:5173
+
+### Arrêter l'application
+- Appuyez sur `Ctrl+C` dans les deux terminaux (backend et frontend)
 
 ---
 
