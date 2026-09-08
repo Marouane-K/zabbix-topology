@@ -76,4 +76,11 @@ echo Pour arreter l'application:
 echo - Appuyez sur Ctrl+C dans cette fenetre
 echo - Ou executez: docker-compose down
 echo.
+echo ========================================
+echo Contact developpeur
+echo ========================================
+echo Developpe par: Marouane KRIR
+echo GitHub: https://github.com/Marouane-K/zabbix-topology
+echo LinkedIn: https://www.linkedin.com/in/marouane-krir/
+echo.
 pause
