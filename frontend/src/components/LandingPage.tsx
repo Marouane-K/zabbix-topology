@@ -18,22 +18,28 @@ export default function LandingPage({ onContinue }: { onContinue: () => void }) 
       <div className="landing-container">
         <div className="landing-content">
           <div className="landing-header">
-            <div className="version-badge">
-              <Zap size={14} />
-              <span>Version Test v1.0</span>
+            <div className="header-center">
+              <div className="version-badge">
+                <Zap size={14} />
+                <span>Version Test v1.0</span>
+              </div>
+              <div className="logo-icon">
+                <img src="/logo.jpg" alt="TRANSMAP Zabbix Topology Logo" className="logo-image logo-transparent" />
+              </div>
+              <h1 className="landing-title">TRANSMAP Zabbix Topology</h1>
+              <p className="landing-subtitle">
+                Visualisation intelligente de topologie réseau basée sur Zabbix
+              </p>
+              <p className="landing-description">
+                Transformez vos données Zabbix en une carte réseau interactive et dynamique.
+                Détectez automatiquement les interconnexions, surveillez les métriques en temps réel
+                et identifiez rapidement les goulots d'étranglement de votre infrastructure.
+              </p>
             </div>
-            <div className="logo-icon">
-              <img src="/logo.jpg" alt="TRANSMAP Zabbix Topology Logo" className="logo-image logo-transparent" />
-            </div>
-            <h1 className="landing-title">TRANSMAP Zabbix Topology</h1>
-            <p className="landing-subtitle">
-              Visualisation intelligente de topologie réseau basée sur Zabbix
-            </p>
-            <p className="landing-description">
-              Transformez vos données Zabbix en une carte réseau interactive et dynamique. 
-              Détectez automatiquement les interconnexions, surveillez les métriques en temps réel 
-              et identifiez rapidement les goulots d'étranglement de votre infrastructure.
-            </p>
+            <button className="landing-cta-top" onClick={onContinue}>
+              <span>Commencer</span>
+              <ArrowRight size={16} />
+            </button>
           </div>
 
           <div className="landing-features">
