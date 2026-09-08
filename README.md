@@ -173,12 +173,6 @@ Utilisez le bouton **"Explorer le mode démonstration"** pour découvrir l'inter
 
 ---
 
-## 📝 License
-
-Ce projet est sous license MIT.
-
----
-
 ## ⚠️ Note
 
 Cette application est en **version de test v1.0**. Des améliorations sont prévues pour les futures versions.
