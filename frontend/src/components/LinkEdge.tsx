@@ -71,12 +71,12 @@ function LinkEdgeComponent({
             {data.utilization_pct != null ? (
               <div className="link-traffic">
                 <span className="utilization">{data.utilization_pct.toFixed(0)}%</span>
-                <span className="speed">{formatBps(data.in_bps + (data.out_bps || 0))}</span>
+                <span className="speed">{formatBps((data.in_bps || 0) + (data.out_bps || 0))}</span>
               </div>
             ) : (
               <div className="link-traffic">
-                <span className="direction">↓{formatBps(data.in_bps)}</span>
-                <span className="direction">↑{formatBps(data.out_bps)}</span>
+                <span className="direction">↓{formatBps(data.in_bps || 0)}</span>
+                <span className="direction">↑{formatBps(data.out_bps || 0)}</span>
               </div>
             )}
           </div>

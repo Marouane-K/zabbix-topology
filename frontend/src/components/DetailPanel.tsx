@@ -136,17 +136,17 @@ export function DetailPanel() {
                   </h3>
                   <div className="live-metrics">
                     <ProgressBar
-                      value={selectedHost.live?.cpu_pct}
+                      value={selectedHost.live?.cpu_pct ?? null}
                       label="CPU"
                       icon={Cpu}
                     />
                     <ProgressBar
-                      value={selectedHost.live?.mem_pct}
+                      value={selectedHost.live?.mem_pct ?? null}
                       label="Mémoire"
                       icon={MemoryStick}
                     />
                     <ProgressBar
-                      value={selectedHost.live?.disk_pct}
+                      value={selectedHost.live?.disk_pct ?? null}
                       label="Disque /"
                       icon={HardDrive}
                     />
