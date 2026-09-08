@@ -1,12 +1,13 @@
 import { useState, type FormEvent } from "react";
-import { KeyRound, Link2, ShieldCheck, Sparkles } from "lucide-react";
+import { KeyRound, Link2, ShieldCheck, Sparkles, ArrowLeft } from "lucide-react";
 import { api } from "../api";
 
 interface Props {
   onConnected: (sessionId: string, version: string) => void;
+  onBack: () => void;
 }
 
-export function ConnectScreen({ onConnected }: Props) {
+export function ConnectScreen({ onConnected, onBack }: Props) {
   const [url, setUrl] = useState("");
   const [authMethod, setAuthMethod] = useState<"password" | "token">("password");
   const [username, setUsername] = useState("");
@@ -54,6 +55,10 @@ export function ConnectScreen({ onConnected }: Props) {
     <div className="connect-screen">
       <div className="connect-backdrop" aria-hidden />
       <div className="connect-card">
+        <button className="connect-back-button" onClick={onBack}>
+          <ArrowLeft size={20} />
+          <span>Revenir à l'accueil</span>
+        </button>
         <div className="connect-hero">
           <div className="connect-mark">
             <img src="/logo.jpg" alt="TRANSMAP Logo" className="connect-logo" />

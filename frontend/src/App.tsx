@@ -126,7 +126,7 @@ export default function App() {
   }
 
   if (!sessionId) {
-    return <ConnectScreen onConnected={handleConnected} />;
+    return <ConnectScreen onConnected={handleConnected} onBack={() => setShowLanding(true)} />;
   }
 
   return (
