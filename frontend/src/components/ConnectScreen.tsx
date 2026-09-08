@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Cable, KeyRound, Link2, ShieldCheck, Sparkles } from "lucide-react";
+import { KeyRound, Link2, ShieldCheck, Sparkles } from "lucide-react";
 import { api } from "../api";
 
 interface Props {
@@ -56,9 +56,9 @@ export function ConnectScreen({ onConnected }: Props) {
       <div className="connect-card">
         <div className="connect-hero">
           <div className="connect-mark">
-            <Cable size={28} />
+            <img src="/logo.jpg" alt="TRANSMAP Logo" className="connect-logo" />
           </div>
-          <h1>Zabbix Topology</h1>
+          <h1>TRANSMAP Zabbix Topology</h1>
           <p>
             Visualisation intelligente de votre infrastructure supervisée — topologie interactive,
             états en direct, bande passante et problèmes actifs.
@@ -155,6 +155,17 @@ export function ConnectScreen({ onConnected }: Props) {
           Les identifiants restent côté serveur — jamais exposés dans le navigateur au-delà de la
           requête de connexion.
         </p>
+
+        <div className="connect-footer">
+          <span>Développé par </span>
+          <a href="https://www.linkedin.com/in/marouane-krir/" target="_blank" rel="noopener noreferrer" className="dev-link">
+            Marouane KRIR
+          </a>
+          <span> · </span>
+          <a href="https://github.com/Marouane-K/zabbix-topology" target="_blank" rel="noopener noreferrer" className="dev-link">
+            GitHub
+          </a>
+        </div>
       </div>
     </div>
   );

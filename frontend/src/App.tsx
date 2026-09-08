@@ -4,6 +4,7 @@ import { DetailPanel } from "./components/DetailPanel";
 import { Legend } from "./components/Legend";
 import { Toolbar } from "./components/Toolbar";
 import { TopologyCanvas } from "./components/TopologyCanvas";
+import LandingPage from "./components/LandingPage";
 import { api } from "./api";
 import { useAppStore } from "./store";
 import type { DisplayPrefs } from "./types";
@@ -23,6 +24,7 @@ export default function App() {
   const reset = useAppStore((s) => s.reset);
 
   const [relayoutTick, setRelayoutTick] = useState(0);
+  const [showLanding, setShowLanding] = useState(true);
 
   const loadTopology = useCallback(async (sid: string) => {
     setLoading(true);
@@ -118,6 +120,10 @@ export default function App() {
       setError(err instanceof Error ? err.message : "Échec de restauration");
     }
   };
+
+  if (showLanding) {
+    return <LandingPage onContinue={() => setShowLanding(false)} />;
+  }
 
   if (!sessionId) {
     return <ConnectScreen onConnected={handleConnected} />;
