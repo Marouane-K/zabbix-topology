@@ -177,15 +177,7 @@ Utilisez le bouton **"Explorer le mode démonstration"** pour découvrir l'inter
 
 ---
 
-## 🛡️ Sécurité
-
-- Les identifiants Zabbix transitent vers le backend puis une session serveur est utilisée
-- Ne committez jamais `.env` ni de tokens
-- Les secrets ne sont jamais stockés dans le frontend
-
----
-
-## 👨‍💻 Développeur
+## ‍💻 Développeur
 
 **Développé par Marouane KRIR**
 
