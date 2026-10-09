@@ -57,6 +57,31 @@ if %errorlevel% neq 0 (
 echo [OK] Depot clone ou mis a jour
 echo.
 
+REM Check for local images
+echo [INFO] Verification des images Docker locales...
+docker images | findstr "python 3.11-slim" >nul
+if %errorlevel% equ 0 (
+    echo [OK] Image python:3.11-slim trouvee localement
+) else (
+    echo [WARNING] Image python:3.11-slim non trouvee, tentative de telechargement...
+)
+
+docker images | findstr "node 20-alpine" >nul
+if %errorlevel% equ 0 (
+    echo [OK] Image node:20-alpine trouvee localement
+) else (
+    echo [WARNING] Image node:20-alpine non trouvee, tentative de telechargement...
+)
+
+docker images | findstr "nginx alpine" >nul
+if %errorlevel% equ 0 (
+    echo [OK] Image nginx:alpine trouvee localement
+) else (
+    echo [WARNING] Image nginx:alpine non trouvee, tentative de telechargement...
+)
+
+echo.
+
 REM Build and start with Docker Compose
 echo [INFO] Construction et demarrage de l'application...
 echo Cela peut prendre plusieurs minutes...
