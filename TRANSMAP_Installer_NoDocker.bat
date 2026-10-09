@@ -92,11 +92,18 @@ echo.
 
 REM Install Node.js dependencies
 echo [INFO] Installation des dependances Node.js...
-cd /d "%~dp0frontend"
-npm install
+cd "%USERPROFILE%\zabbix-topology\frontend"
+echo [INFO] Verification du dossier frontend...
+dir
+echo.
+echo [INFO] Lancement de npm install...
+call npm install
 
 if %errorlevel% neq 0 (
     echo [ERREUR] Echec de l'installation des dependances Node.js.
+    echo.
+    echo Verifiez que Node.js est correctement installe.
+    echo Essayez manuellement: cd %USERPROFILE%\zabbix-topology\frontend ^&^& npm install
     pause
     exit /b 1
 )
@@ -106,10 +113,12 @@ echo.
 
 REM Build frontend
 echo [INFO] Construction du frontend...
-npm run build
+call npm run build
 
 if %errorlevel% neq 0 (
     echo [ERREUR] Echec de la construction du frontend.
+    echo.
+    echo Essayez manuellement: cd %USERPROFILE%\zabbix-topology\frontend ^&^& npm run build
     pause
     exit /b 1
 )
