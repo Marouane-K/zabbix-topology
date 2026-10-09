@@ -1,0 +1,52 @@
+========================================
+TRANSMAP Zabbix Topology - Guide d'utilisation
+========================================
+
+COMMENT LANCER L'APPLICATION
+----------------------------
+
+Option 1 - Double-cliquez sur le fichier:
+  - TRANSMAP_Start.bat (sur le Bureau ou dans le dossier de l'application)
+
+Option 2 - Via le dossier:
+  - Allez dans: C:\Users\admin\zabbix-topology
+  - Double-cliquez sur: TRANSMAP_Start.bat
+
+
+ACCES A L'APPLICATION
+---------------------
+
+Une fois lancée, ouvrez votre navigateur et allez sur:
+  - Frontend: http://localhost:5173
+  - API Documentation: http://localhost:8000/docs
+
+
+ARRETER L'APPLICATION
+--------------------
+
+Fermez simplement les 2 fenetres noires (CMD) qui sont ouvertes:
+  - "TRANSMAP Backend"
+  - "TRANSMAP Frontend"
+
+
+INFORMATIONS TECHNIQUES
+-----------------------
+
+L'application est installee sans Docker, en utilisant:
+  - Python 3.14.7
+  - Node.js v24.20.0
+
+Dossier d'installation:
+  - C:\Users\admin\zabbix-topology
+
+Si vous avez besoin de reinstaller ou mettre a jour:
+  - Contactez le developpeur (Marouane KRIR)
+
+
+CONTACT DEVELOPPEUR
+-------------------
+
+GitHub: https://github.com/Marouane-K/zabbix-topology
+LinkedIn: https://www.linkedin.com/in/marouane-krir/
+
+========================================
