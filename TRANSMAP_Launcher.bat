@@ -15,7 +15,7 @@ timeout /t 3 /nobreak >nul
 
 REM Start frontend in new window
 echo [INFO] Demarrage du frontend...
-start "TRANSMAP Frontend" cmd /k "cd /d %USERPROFILE%\zabbix-topology\frontend && npm run preview"
+start "TRANSMAP Frontend" cmd /k "cd /d %USERPROFILE%\zabbix-topology\frontend && npm run dev"
 
 echo.
 echo ========================================
