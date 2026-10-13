@@ -54,11 +54,24 @@ if %NEED_PYTHON%==1 (
     echo [INFO] Installation de Python 3.11...
     winget install Python.Python.3.11 --silent --accept-package-agreements --accept-source-agreements
     if %errorlevel% neq 0 (
-        echo [ERREUR] Echec de l'installation de Python.
-        pause
-        exit /b 1
+        echo [WARNING] Echec de l'installation de Python via winget.
+        echo [INFO] Verification si Python est deja installe...
+        python --version >nul 2>&1
+        if %errorlevel% equ 0 (
+            echo [OK] Python est deja installe, continuation...
+        ) else (
+            echo [ERREUR] Python n'est pas installe et l'installation automatique a echoue.
+            echo.
+            echo Veuillez installer Python manuellement depuis:
+            echo https://www.python.org/downloads/
+            echo.
+            echo IMPORTANT: Cochez "Add Python to PATH" lors de l'installation
+            pause
+            exit /b 1
+        )
+    ) else (
+        echo [OK] Python installe avec succes.
     )
-    echo [OK] Python installe avec succes.
     echo.
 )
 
@@ -67,11 +80,22 @@ if %NEED_NODE%==1 (
     echo [INFO] Installation de Node.js 20 LTS...
     winget install OpenJS.NodeJS.LTS --silent --accept-package-agreements --accept-source-agreements
     if %errorlevel% neq 0 (
-        echo [ERREUR] Echec de l'installation de Node.js.
-        pause
-        exit /b 1
+        echo [WARNING] Echec de l'installation de Node.js via winget.
+        echo [INFO] Verification si Node.js est deja installe...
+        node --version >nul 2>&1
+        if %errorlevel% equ 0 (
+            echo [OK] Node.js est deja installe, continuation...
+        ) else (
+            echo [ERREUR] Node.js n'est pas installe et l'installation automatique a echoue.
+            echo.
+            echo Veuillez installer Node.js manuellement depuis:
+            echo https://nodejs.org/
+            pause
+            exit /b 1
+        )
+    ) else (
+        echo [OK] Node.js installe avec succes.
     )
-    echo [OK] Node.js installe avec succes.
     echo.
 )
 
@@ -80,11 +104,22 @@ if %NEED_GIT%==1 (
     echo [INFO] Installation de Git...
     winget install Git.Git --silent --accept-package-agreements --accept-source-agreements
     if %errorlevel% neq 0 (
-        echo [ERREUR] Echec de l'installation de Git.
-        pause
-        exit /b 1
+        echo [WARNING] Echec de l'installation de Git via winget.
+        echo [INFO] Verification si Git est deja installe...
+        git --version >nul 2>&1
+        if %errorlevel% equ 0 (
+            echo [OK] Git est deja installe, continuation...
+        ) else (
+            echo [ERREUR] Git n'est pas installe et l'installation automatique a echoue.
+            echo.
+            echo Veuillez installer Git manuellement depuis:
+            echo https://git-scm.com/download/win
+            pause
+            exit /b 1
+        )
+    ) else (
+        echo [OK] Git installe avec succes.
     )
-    echo [OK] Git installe avec succes.
     echo.
 )
 
