@@ -56,16 +56,27 @@ if %NEED_PYTHON%==1 (
     if %errorlevel% neq 0 (
         echo [INFO] Winget a echoue ou l'outil est deja installe. Verification...
     )
-    REM Verify Python is working regardless of winget result
+    REM Verify Python is working - try multiple methods
     python --version >nul 2>&1
     if %errorlevel% equ 0 (
-        echo [OK] Python est operationnel.
+        echo [OK] Python est operationnel (via 'python').
     ) else (
-        echo [WARNING] Python ne fonctionne pas. Tentative d'installation alternative...
-        echo [INFO] Veuillez installer Python manuellement depuis:
-        echo https://www.python.org/downloads/
-        echo IMPORTANT: Cochez "Add Python to PATH"
-        pause
+        python3 --version >nul 2>&1
+        if %errorlevel% equ 0 (
+            echo [OK] Python est operationnel (via 'python3').
+        ) else (
+            py --version >nul 2>&1
+            if %errorlevel% equ 0 (
+                echo [OK] Python est operationnel (via 'py').
+            ) else (
+                echo [INFO] Python a ete installe mais le PATH n'est pas encore a jour.
+                echo [INFO] Veuillez fermer cette fenetre et relancer le script.
+                echo.
+                echo Le PATH sera mis a jour apres le redemarrage de la fenetre.
+                pause
+                exit /b 0
+            )
+        )
     )
     echo.
 )
@@ -82,10 +93,12 @@ if %NEED_NODE%==1 (
     if %errorlevel% equ 0 (
         echo [OK] Node.js est operationnel.
     ) else (
-        echo [WARNING] Node.js ne fonctionne pas. Tentative d'installation alternative...
-        echo [INFO] Veuillez installer Node.js manuellement depuis:
-        echo https://nodejs.org/
+        echo [INFO] Node.js a ete installe mais le PATH n'est pas encore a jour.
+        echo [INFO] Veuillez fermer cette fenetre et relancer le script.
+        echo.
+        echo Le PATH sera mis a jour apres le redemarrage de la fenetre.
         pause
+        exit /b 0
     )
     echo.
 )
@@ -97,6 +110,10 @@ if %NEED_GIT%==1 (
     if %errorlevel% neq 0 (
         echo [INFO] Winget a echoue ou l'outil est deja installe. Verification...
     )
+    REM Refresh environment variables after installation
+    echo [INFO] Mise a jour des variables d'environnement...
+    call refreshenv >nul 2>&1
+    timeout /t 5 /nobreak >nul
     REM Verify Git is working regardless of winget result
     git --version >nul 2>&1
     if %errorlevel% equ 0 (
@@ -113,20 +130,44 @@ if %NEED_GIT%==1 (
 REM Refresh environment variables
 echo [INFO] Mise a jour des variables d'environnement...
 call refreshenv >nul 2>&1
-timeout /t 3 /nobreak >nul
+for /f "usebackq tokens=*" %%i in (`cmd /c "echo %PATH%"`) do set NEW_PATH=%%i
+set PATH=%NEW_PATH%
+timeout /t 5 /nobreak >nul
 echo [OK] Variables d'environnement mises a jour.
 echo.
 
 :continue_installation
-echo [OK] Python est installe
-python --version
+echo [OK] Verification des outils installes...
+
+REM Find working Python command
+python --version >nul 2>&1
+if %errorlevel% equ 0 (
+    set PYTHON_CMD=python
+) else (
+    python3 --version >nul 2>&1
+    if %errorlevel% equ 0 (
+        set PYTHON_CMD=python3
+    ) else (
+        py --version >nul 2>&1
+        if %errorlevel% equ 0 (
+            set PYTHON_CMD=py
+        ) else (
+            echo [ERREUR] Python non fonctionnel. Installation necessaire.
+            pause
+            exit /b 1
+        )
+    )
+)
+
+echo [OK] Python est operationnel
+%PYTHON_CMD% --version
 echo.
 
-echo [OK] Node.js est installe
+echo [OK] Node.js est operationnel
 node --version
 echo.
 
-echo [OK] Git est installe
+echo [OK] Git est operationnel
 git --version
 echo.
 
@@ -170,8 +211,8 @@ echo.
 REM Install Python dependencies
 echo [INFO] Installation des dependances Python...
 cd "%USERPROFILE%\zabbix-topology\backend"
-python -m pip install --upgrade pip
-pip install fastapi uvicorn httpx pydantic pydantic-settings python-multipart aiosqlite
+%PYTHON_CMD% -m pip install --upgrade pip
+%PYTHON_CMD% -m pip install fastapi uvicorn httpx pydantic pydantic-settings python-multipart aiosqlite
 
 if %errorlevel% neq 0 (
     echo [ERREUR] Echec de l'installation des dependances Python.
