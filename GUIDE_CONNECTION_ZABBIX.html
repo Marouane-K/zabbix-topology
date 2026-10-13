@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRANSMAP - Guide de Connexion Zabbix</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #1a5f45;
+            border-bottom: 3px solid #1a5f45;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 20px;
+        }
+        .note {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .success {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: #666;
+        }
+        .footer a {
+            color: #1a5f45;
+            text-decoration: none;
+        }
+        @media print {
+            body {
+                max-width: 100%;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>TRANSMAP - Guide de Connexion à Zabbix</h1>
+
+    <div class="note no-print">
+        <strong>Conseil :</strong> Pour imprimer ce guide en PDF, appuyez sur <strong>Ctrl+P</strong> dans votre navigateur et sélectionnez "Enregistrer au format PDF".
+    </div>
+
+    <h2>Comment connecter TRANSMAP à votre serveur Zabbix</h2>
+
+    <h3>Étape 1 : Démarrer l'application</h3>
+    <p>Sur votre PC :</p>
+    <ol>
+        <li>Double-cliquez sur : <code>TRANSMAP_Start.bat</code></li>
+        <li>Ouvrez votre navigateur sur : <code>http://localhost:5173</code></li>
+    </ol>
+
+    <h3>Étape 2 : Se connecter au serveur Zabbix</h3>
+    <p>Dans l'interface TRANSMAP :</p>
+    <ol>
+        <li>Cliquez sur "Se connecter à un serveur"</li>
+        <li>Remplissez le formulaire de connexion</li>
+    </ol>
+
+    <h2>Champ "URL de l'API Zabbix"</h2>
+    <p><strong>Format accepté :</strong></p>
+    <ul>
+        <li><code>http://IP_DU_SERVEUR/zabbix/api_jsonrpc.php</code></li>
+        <li><code>http://IP_DU_SERVEUR/zabbix</code> (ajout automatique de /api_jsonrpc.php)</li>
+        <li><code>https://IP_DU_SERVEUR/zabbix/api_jsonrpc.php</code> (si SSL)</li>
+    </ul>
+
+    <p><strong>Exemples :</strong></p>
+    <ul>
+        <li><code>http://192.168.1.100/zabbix/api_jsonrpc.php</code></li>
+        <li><code>http://zabbix.mondomaine.com/zabbix</code></li>
+        <li><code>https://10.0.0.50/zabbix/api_jsonrpc.php</code></li>
+    </ul>
+
+    <h2>Méthode d'authentification</h2>
+
+    <h3>Option A : Identifiants (classique)</h3>
+    <ul>
+        <li>Sélectionnez "Identifiants"</li>
+        <li>Utilisateur : votre nom d'utilisateur Zabbix</li>
+        <li>Mot de passe : votre mot de passe Zabbix</li>
+    </ul>
+
+    <h3>Option B : Token API (recommandé)</h3>
+    <ul>
+        <li>Sélectionnez "Token API"</li>
+        <li>Token : collez votre clé API Zabbix</li>
+    </ul>
+
+    <div class="note">
+        <strong>Pour générer un Token API (Zabbix 6.0+) :</strong>
+        <ol>
+            <li>Connectez-vous à l'interface Zabbix</li>
+            <li>Allez dans : Administration → API tokens</li>
+            <li>Cliquez sur "Create API token"</li>
+            <li>Donnez un nom (ex: TRANSMAP)</li>
+            <li>Copiez le token généré</li>
+            <li>Collez-le dans TRANSMAP</li>
+        </ol>
+    </div>
+
+    <h2>Vérifier SSL</h2>
+    <ul>
+        <li>Cochez "Vérifier le certificat SSL" si votre serveur Zabbix a un certificat valide</li>
+        <li>Décochez si le certificat est auto-signé ou invalide</li>
+    </ul>
+
+    <h2>Étape 3 : Tester et se connecter</h2>
+    <p>Cliquez sur "Tester et se connecter"</p>
+    <p>L'application va :</p>
+    <ul>
+        <li>Vérifier la connexion au serveur</li>
+        <li>Détecter automatiquement la version de Zabbix</li>
+        <li>Récupérer la topologie réseau</li>
+        <li>Afficher les hosts, liens et métriques</li>
+    </ul>
+
+    <h2>Compatibilité Zabbix</h2>
+    <div class="success">
+        <strong>TRANSMAP est compatible avec TOUTES les versions de Zabbix :</strong>
+        <ul>
+            <li>Zabbix 5.x : Support complet</li>
+            <li>Zabbix 6.x : Support complet (Token API + Identifiants)</li>
+            <li>Zabbix 7.x : Support complet (Bearer header authentication)</li>
+        </ul>
+    </div>
+    <p>L'application détecte automatiquement la version et adapte :</p>
+    <ul>
+        <li>La méthode d'authentification</li>
+        <li>Les appels API spécifiques à chaque version</li>
+        <li>La gestion des tokens</li>
+    </ul>
+
+    <h2>URL de l'API JSON-RPC</h2>
+    <p>L'API Zabbix JSON-RPC est toujours accessible à :</p>
+    <pre><code>http://VOTRE_SERVEUR/zabbix/api_jsonrpc.php</code></pre>
+
+    <div class="note">
+        <strong>Si vous ne connaissez pas l'URL exacte :</strong>
+        <ol>
+            <li>Ouvrez votre interface Zabbix habituelle</li>
+            <li>Regardez l'URL dans votre navigateur</li>
+            <li>Ajoutez "/api_jsonrpc.php" à la fin</li>
+        </ol>
+        <p><strong>Exemple :</strong></p>
+        <ul>
+            <li>Interface Zabbix : <code>http://192.168.1.100/zabbix</code></li>
+            <li>API Zabbix : <code>http://192.168.1.100/zabbix/api_jsonrpc.php</code></li>
+        </ul>
+    </div>
+
+    <h2>Dépannage</h2>
+
+    <h3>Erreur "Connexion refusée"</h3>
+    <ul>
+        <li>Vérifiez que l'URL est correcte</li>
+        <li>Vérifiez que le serveur Zabbix est accessible depuis le PC</li>
+        <li>Vérifiez que le port 80 (HTTP) ou 443 (HTTPS) n'est pas bloqué par le pare-feu</li>
+    </ul>
+
+    <h3>Erreur "Authentification échouée"</h3>
+    <ul>
+        <li>Vérifiez les identifiants ou le token API</li>
+        <li>Vérifiez que l'utilisateur a les permissions nécessaires dans Zabbix</li>
+    </ul>
+
+    <h3>Erreur "Certificate SSL invalide"</h3>
+    <ul>
+        <li>Décochez "Vérifier le certificat SSL"</li>
+        <li>Ou installez un certificat valide sur le serveur Zabbix</li>
+    </ul>
+
+    <h2>Informations techniques</h2>
+    <ul>
+        <li><strong>Protocole :</strong> JSON-RPC 2.0</li>
+        <li><strong>Endpoint :</strong> /api_jsonrpc.php</li>
+        <li><strong>Authentification :</strong> Bearer Token (Zabbix 7+) ou Body auth (versions anciennes)</li>
+        <li><strong>Compatibilité :</strong> Zabbix 5.x, 6.x, 7.x</li>
+    </ul>
+
+    <div class="footer">
+        <p><strong>Contact</strong></p>
+        <p>Pour toute question technique :</p>
+        <a href="https://github.com/Marouane-K/zabbix-topology" target="_blank">GitHub</a> ·
+        <a href="https://www.linkedin.com/in/marouane-krir/" target="_blank">LinkedIn</a>
+    </div>
+</body>
+</html>

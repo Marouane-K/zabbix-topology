@@ -4,38 +4,108 @@ echo TRANSMAP Zabbix Topology - Installation Complete
 echo ========================================
 echo.
 
-REM Check if Python is installed
+REM Check what needs to be installed
+set NEED_PYTHON=0
+set NEED_NODE=0
+set NEED_GIT=0
+
 python --version >nul 2>&1
-if %errorlevel% neq 0 (
-    echo [ERREUR] Python n'est pas installe.
+if %errorlevel% neq 0 set NEED_PYTHON=1
+
+node --version >nul 2>&1
+if %errorlevel% neq 0 set NEED_NODE=1
+
+git --version >nul 2>&1
+if %errorlevel% neq 0 set NEED_GIT=1
+
+REM If everything is installed, skip the installation prompt
+if %NEED_PYTHON%==0 if %NEED_NODE%==0 if %NEED_GIT%==0 (
+    echo [OK] Tous les outils requis sont deja installes.
     echo.
-    echo Veuillez installer Python 3.11 depuis:
-    echo https://www.python.org/downloads/
-    echo.
-    echo IMPORTANT: Cochez "Add Python to PATH" lors de l'installation
-    echo.
+    goto :continue_installation
+)
+
+REM Display what needs to be installed
+echo [INFO] Certains outils necessaires ne sont pas installes.
+echo.
+echo Outils a installer:
+if %NEED_PYTHON%==1 echo   - Python 3.11 (~500 MB)
+if %NEED_NODE%==1 echo   - Node.js 20 LTS (~300 MB)
+if %NEED_GIT%==1 echo   - Git (~100 MB)
+echo.
+echo Espace disque total necessaire: ~900 MB
+echo.
+echo L'installation sera effectuee automatiquement via Windows Package Manager (winget).
+echo Ceci peut prendre plusieurs minutes.
+echo.
+set /p CONFIRM="Souhaitez-vous proceder a l'installation automatique? (O/N): "
+if /i not "%CONFIRM%"=="O" (
+    echo [ERREUR] Installation annulee par l'utilisateur.
     pause
     exit /b 1
 )
 
+echo.
+echo [INFO] Debut de l'installation automatique...
+echo.
+
+REM Install Python if needed
+if %NEED_PYTHON%==1 (
+    echo [INFO] Installation de Python 3.11...
+    winget install Python.Python.3.11 --silent --accept-package-agreements --accept-source-agreements
+    if %errorlevel% neq 0 (
+        echo [ERREUR] Echec de l'installation de Python.
+        pause
+        exit /b 1
+    )
+    echo [OK] Python installe avec succes.
+    echo.
+)
+
+REM Install Node.js if needed
+if %NEED_NODE%==1 (
+    echo [INFO] Installation de Node.js 20 LTS...
+    winget install OpenJS.NodeJS.LTS --silent --accept-package-agreements --accept-source-agreements
+    if %errorlevel% neq 0 (
+        echo [ERREUR] Echec de l'installation de Node.js.
+        pause
+        exit /b 1
+    )
+    echo [OK] Node.js installe avec succes.
+    echo.
+)
+
+REM Install Git if needed
+if %NEED_GIT%==1 (
+    echo [INFO] Installation de Git...
+    winget install Git.Git --silent --accept-package-agreements --accept-source-agreements
+    if %errorlevel% neq 0 (
+        echo [ERREUR] Echec de l'installation de Git.
+        pause
+        exit /b 1
+    )
+    echo [OK] Git installe avec succes.
+    echo.
+)
+
+REM Refresh environment variables
+echo [INFO] Mise a jour des variables d'environnement...
+call refreshenv >nul 2>&1
+timeout /t 3 /nobreak >nul
+echo [OK] Variables d'environnement mises a jour.
+echo.
+
+:continue_installation
 echo [OK] Python est installe
 python --version
 echo.
 
-REM Check if Node.js is installed
-node --version >nul 2>&1
-if %errorlevel% neq 0 (
-    echo [ERREUR] Node.js n'est pas installe.
-    echo.
-    echo Veuillez installer Node.js 20 depuis:
-    echo https://nodejs.org/
-    echo.
-    pause
-    exit /b 1
-)
-
 echo [OK] Node.js est installe
 node --version
+echo.
+
+echo [OK] Git est installe
+git --version
 echo.
 
 REM Configure npm proxy

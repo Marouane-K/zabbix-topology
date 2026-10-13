@@ -10,9 +10,41 @@
 
 ## 🚀 Installation rapide (Recommandée)
 
-### Méthode 1 : Script d'installation automatique ⚡
+### Méthode 1 : Script d'installation automatique (Sans Docker) ⚡
 
-**La méthode la plus simple pour démarrer rapidement.**
+**La méthode la plus simple - installe tout automatiquement.**
+
+#### Prérequis
+- Windows 10 ou 11
+- Connexion internet
+- Droits administrateur (pour l'installation automatique des outils)
+
+#### Étapes
+
+1. **Télécharger le fichier d'installation**
+   - Allez sur : https://github.com/Marouane-K/zabbix-topology
+   - Téléchargez le fichier `TRANSMAP_Installation_Complete.bat`
+
+2. **Double-cliquer sur `TRANSMAP_Installation_Complete.bat`**
+   - Le script vérifie si Python, Node.js et Git sont installés
+   - Si nécessaire, il les installe automatiquement via winget
+   - Configure le proxy npm (si nécessaire)
+   - Clone automatiquement le dépôt
+   - Installe toutes les dépendances
+   - Construit le frontend
+
+3. **Lancer l'application**
+   - Double-cliquez sur `TRANSMAP_Start.bat`
+   - Ouvrez votre navigateur sur : http://localhost:5173
+
+#### Arrêter l'application
+- Fermez les fenêtres CMD ouvertes ("TRANSMAP Backend" et "TRANSMAP Frontend")
+
+---
+
+### Méthode 2 : Script d'installation Docker 🐳
+
+**Pour les environnements avec Docker.**
 
 #### Prérequis
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) (obligatoire)
@@ -132,6 +164,12 @@ npm run dev
 ---
 
 ## 🔑 Connexion à Zabbix
+
+### Guide complet de connexion
+
+Pour des instructions détaillées sur la connexion à votre serveur Zabbix, consultez :
+
+📄 **[GUIDE_CONNECTION_ZABBIX.html](GUIDE_CONNECTION_ZABBIX.html)** (ouvrez dans votre navigateur et imprimez en PDF avec Ctrl+P)
 
 ### Première utilisation
 

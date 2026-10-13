@@ -1,0 +1,145 @@
+========================================
+TRANSMAP - Guide de connexion à Zabbix
+========================================
+
+COMMENT CONNECTER TRANSMAP A VOTRE SERVEUR ZABBIX
+-------------------------------------------------
+
+
+ETAPE 1 : Demarrer l'application
+-------------------------------
+
+Sur votre PC :
+1. Double-cliquez sur: TRANSMAP_Start.bat
+2. Ouvrez votre navigateur sur: http://localhost:5173
+
+
+ETAPE 2 : Se connecter au serveur Zabbix
+---------------------------------------
+
+Dans l'interface TRANSMAP :
+1. Cliquez sur "Se connecter a un serveur"
+2. Remplissez le formulaire de connexion
+
+
+CHAMP "URL DE L'API ZABBIX"
+---------------------------
+
+Format accepte :
+- http://IP_DU_SERVEUR/zabbix/api_jsonrpc.php
+- http://IP_DU_SERVEUR/zabbix (ajout automatique de /api_jsonrpc.php)
+- https://IP_DU_SERVEUR/zabbix/api_jsonrpc.php (si SSL)
+
+Exemples :
+- http://192.168.1.100/zabbix/api_jsonrpc.php
+- http://zabbix.mondomaine.com/zabbix
+- https://10.0.0.50/zabbix/api_jsonrpc.php
+
+
+METHODE D'AUTHENTIFICATION
+--------------------------
+
+OPTION A : Identifiants (classique)
+------------------------------------
+- Selectionnez "Identifiants"
+- Utilisateur : votre nom d'utilisateur Zabbix
+- Mot de passe : votre mot de passe Zabbix
+
+
+OPTION B : Token API (recommande)
+----------------------------------
+- Selectionnez "Token API"
+- Token : collez votre cle API Zabbix
+
+Pour generer un Token API (Zabbix 6.0+) :
+1. Connectez-vous a l'interface Zabbix
+2. Allez dans: Administration -> API tokens
+3. Cliquez sur "Create API token"
+4. Donnez un nom (ex: TRANSMAP)
+5. Copiez le token genere
+6. Collez-le dans TRANSMAP
+
+
+VERIFIER SSL
+------------
+
+- Cochez "Verifier le certificat SSL" si votre serveur Zabbix a un certificat valide
+- Dechochez si le certificat est auto-signe ou invalide
+
+
+ETAPE 3 : Tester et se connecter
+---------------------------------
+
+Cliquez sur "Tester et se connecter"
+
+L'application va :
+- Verifier la connexion au serveur
+- Detecter automatiquement la version de Zabbix
+- Recuperer la topologie reseau
+- Afficher les hosts, liens et metriques
+
+
+COMPATIBILITE ZABBIX
+--------------------
+
+TRANSMAP est compatible avec TOUTES les versions de Zabbix :
+- Zabbix 5.x : Support complet
+- Zabbix 6.x : Support complet (Token API + Identifiants)
+- Zabbix 7.x : Support complet (Bearer header authentication)
+
+L'application detecte automatiquement la version et adapte :
+- La methode d'authentification
+- Les appels API specifiques a chaque version
+- La gestion des tokens
+
+
+URL DE L'API JSON-RPC
+---------------------
+
+L'API Zabbix JSON-RPC est toujours accessible a :
+http://VOTRE_SERVEUR/zabbix/api_jsonrpc.php
+
+Si vous ne connaissez pas l'URL exacte :
+1. Ouvrez votre interface Zabbix habituelle
+2. Regardez l'URL dans votre navigateur
+3. Ajoutez "/api_jsonrpc.php" a la fin
+
+Exemple :
+- Interface Zabbix : http://192.168.1.100/zabbix
+- API Zabbix : http://192.168.1.100/zabbix/api_jsonrpc.php
+
+
+DEPANNAGE
+----------
+
+Erreur "Connexion refusee" :
+- Verifiez que l'URL est correcte
+- Verifiez que le serveur Zabbix est accessible depuis le PC
+- Verifiez que le port 80 (HTTP) ou 443 (HTTPS) n'est pas bloque par le pare-feu
+
+Erreur "Authentification echouee" :
+- Verifiez les identifiants ou le token API
+- Verifiez que l'utilisateur a les permissions necessaires dans Zabbix
+
+Erreur "Certificate SSL invalide" :
+- Dechochez "Verifier le certificat SSL"
+- Ou installez un certificat valide sur le serveur Zabbix
+
+
+INFORMATIONS TECHNIQUES
+-----------------------
+
+Protocole : JSON-RPC 2.0
+Endpoint : /api_jsonrpc.php
+Authentification : Bearer Token (Zabbix 7+) ou Body auth (versions anciennes)
+Compatibilite : Zabbix 5.x, 6.x, 7.x
+
+
+CONTACT
+-------
+
+Pour toute question technique :
+GitHub: https://github.com/Marouane-K/zabbix-topology
+LinkedIn: https://www.linkedin.com/in/marouane-krir/
+
+========================================
