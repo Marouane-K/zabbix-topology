@@ -38,14 +38,6 @@ echo.
 echo L'installation sera effectuee automatiquement via Windows Package Manager (winget).
 echo Ceci peut prendre plusieurs minutes.
 echo.
-set /p CONFIRM="Souhaitez-vous proceder a l'installation automatique? (O/N): "
-if /i not "%CONFIRM%"=="O" (
-    echo [ERREUR] Installation annulee par l'utilisateur.
-    pause
-    exit /b 1
-)
-
-echo.
 echo [INFO] Debut de l'installation automatique...
 echo.
 
