@@ -49,6 +49,10 @@ echo.
 echo L'installation sera effectuee automatiquement via Windows Package Manager (winget).
 echo Ceci peut prendre plusieurs minutes.
 echo.
+echo Appuyez sur ENTREE pour continuer, ou FERMER cette fenetre pour annuler.
+pause >nul
+
+echo.
 echo [INFO] Debut de l'installation automatique...
 echo.
 
