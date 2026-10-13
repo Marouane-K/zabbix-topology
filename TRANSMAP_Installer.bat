@@ -1,39 +1,41 @@
 @echo off
 echo ========================================
-echo TRANSMAP Zabbix Topology - Installation
+echo TRANSMAP Zabbix Topology - Installation (Docker)
 echo ========================================
 echo.
 
-REM Check if Docker is installed
+REM Check and install Docker
+echo [1/2] Verification de Docker...
 docker --version >nul 2>&1
-if %errorlevel% neq 0 (
-    echo [ERREUR] Docker n'est pas installe.
-    echo.
-    echo Veuillez installer Docker Desktop depuis:
-    echo https://www.docker.com/products/docker-desktop/
-    echo.
-    pause
-    exit /b 1
+if %errorlevel% equ 0 (
+    echo [OK] Docker est installe.
+    docker --version
+) else (
+    echo [INFO] Docker non trouve. Installation en cours...
+    echo [WARNING] L'installation de Docker peut prendre plusieurs minutes.
+    echo [INFO] Veuillez suivre les instructions de l'installateur Docker.
+    winget install Docker.DockerDesktop --accept-package-agreements --accept-source-agreements
+    echo [OK] Docker installe. Veuillez redemarrer si necessaire.
 )
-
-echo [OK] Docker est installe
-docker --version
 echo.
 
-REM Check if Git is installed
+REM Check and install Git
+echo [2/2] Verification de Git...
 git --version >nul 2>&1
-if %errorlevel% neq 0 (
-    echo [ERREUR] Git n'est pas installe.
-    echo.
-    echo Veuillez installer Git depuis:
-    echo https://git-scm.com/download/win
-    echo.
-    pause
-    exit /b 1
+if %errorlevel% equ 0 (
+    echo [OK] Git est installe.
+    git --version
+) else (
+    echo [INFO] Git non trouve. Installation en cours...
+    winget install Git.Git --silent --accept-package-agreements --accept-source-agreements
+    echo [OK] Git installe.
 )
+echo.
 
-echo [OK] Git est installe
-git --version
+REM Refresh PATH
+echo [INFO] Mise a jour des variables d'environnement...
+timeout /t 3 /nobreak >nul
+echo [OK] Variables mises a jour.
 echo.
 
 REM Clone or update the repository
