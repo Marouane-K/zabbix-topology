@@ -49,66 +49,102 @@ timeout /t 5 /nobreak >nul
 echo [OK] Variables mises a jour.
 echo.
 
-REM Verify tools are accessible
-echo [INFO] Verification que les outils sont accessibles...
-python --version >nul 2>&1
-if %errorlevel% neq 0 (
-    echo [WARNING] Python n'est pas accessible dans cette session.
-    echo [INFO] Veuillez fermer cette fenetre et relancer le script.
-    echo.
-    echo Le PATH sera mis a jour apres le redemarrage de la fenetre.
-    pause
-    exit /b 0
-)
+REM Use direct paths to executables instead of relying on PATH
+echo [INFO] Utilisation des chemins directs vers les executables...
 
-node --version >nul 2>&1
-if %errorlevel% neq 0 (
-    echo [WARNING] Node.js n'est pas accessible dans cette session.
-    echo [INFO] Veuillez fermer cette fenetre et relancer le script.
-    echo.
-    echo Le PATH sera mis a jour apres le redemarrage de la fenetre.
-    pause
-    exit /b 0
-)
-
-git --version >nul 2>&1
-if %errorlevel% neq 0 (
-    echo [WARNING] Git n'est pas accessible dans cette session.
-    echo [INFO] Veuillez fermer cette fenetre et relancer le script.
-    echo.
-    echo Le PATH sera mis a jour apres le redemarrage de la fenetre.
-    pause
-    exit /b 0
-)
-
-echo [OK] Tous les outils sont accessibles.
-echo.
-
-REM Find Python command
-python --version >nul 2>&1
-if %errorlevel% equ 0 (
-    set PYTHON_CMD=python
+REM Set Python path
+if exist "%LOCALAPPDATA%\Programs\Python\Python311\python.exe" (
+    set PYTHON_CMD=%LOCALAPPDATA%\Programs\Python\Python311\python.exe
+) else if exist "%LOCALAPPDATA%\Programs\Python\Python312\python.exe" (
+    set PYTHON_CMD=%LOCALAPPDATA%\Programs\Python\Python312\python.exe
+) else if exist "%LOCALAPPDATA%\Programs\Python\Python313\python.exe" (
+    set PYTHON_CMD=%LOCALAPPDATA%\Programs\Python\Python313\python.exe
+) else if exist "%LOCALAPPDATA%\Programs\Python\Python314\python.exe" (
+    set PYTHON_CMD=%LOCALAPPDATA%\Programs\Python\Python314\python.exe
+) else if exist "C:\Python311\python.exe" (
+    set PYTHON_CMD=C:\Python311\python.exe
+) else if exist "C:\Python312\python.exe" (
+    set PYTHON_CMD=C:\Python312\python.exe
+) else if exist "C:\Python313\python.exe" (
+    set PYTHON_CMD=C:\Python313\python.exe
+) else if exist "C:\Python314\python.exe" (
+    set PYTHON_CMD=C:\Python314\python.exe
 ) else (
-    python3 --version >nul 2>&1
+    echo [INFO] Recherche de Python via PATH...
+    python --version >nul 2>&1
     if %errorlevel% equ 0 (
-        set PYTHON_CMD=python3
+        set PYTHON_CMD=python
     ) else (
-        py --version >nul 2>&1
+        python3 --version >nul 2>&1
         if %errorlevel% equ 0 (
-            set PYTHON_CMD=py
+            set PYTHON_CMD=python3
+        ) else (
+            py --version >nul 2>&1
+            if %errorlevel% equ 0 (
+                set PYTHON_CMD=py
+            ) else (
+                echo [ERREUR] Python introuvable.
+                pause
+                exit /b 1
+            )
         )
     )
 )
+
+echo [OK] Python: %PYTHON_CMD%
+
+REM Set Node.js path
+if exist "%APPDATA%\npm\node_modules\npm\bin\npm.cmd" (
+    set NPM_CMD=%APPDATA%\npm\node_modules\npm\bin\npm.cmd
+) else if exist "%ProgramFiles%\nodejs\npm.cmd" (
+    set NPM_CMD=%ProgramFiles%\nodejs\npm.cmd
+) else if exist "%ProgramFiles(x86)%\nodejs\npm.cmd" (
+    set NPM_CMD=%ProgramFiles(x86)%\nodejs\npm.cmd
+) else (
+    echo [INFO] Recherche de npm via PATH...
+    npm --version >nul 2>&1
+    if %errorlevel% equ 0 (
+        set NPM_CMD=npm
+    ) else (
+        echo [ERREUR] npm introuvable.
+        pause
+        exit /b 1
+    )
+)
+
+echo [OK] npm: %NPM_CMD%
+
+REM Set Git path
+if exist "%ProgramFiles%\Git\cmd\git.exe" (
+    set GIT_CMD=%ProgramFiles%\Git\cmd\git.exe
+) else if exist "%ProgramFiles(x86)%\Git\cmd\git.exe" (
+    set GIT_CMD=%ProgramFiles(x86)%\Git\cmd\git.exe
+) else if exist "%LOCALAPPDATA%\Programs\Git\cmd\git.exe" (
+    set GIT_CMD=%LOCALAPPDATA%\Programs\Git\cmd\git.exe
+) else (
+    echo [INFO] Recherche de git via PATH...
+    git --version >nul 2>&1
+    if %errorlevel% equ 0 (
+        set GIT_CMD=git
+    ) else (
+        echo [ERREUR] git introuvable.
+        pause
+        exit /b 1
+    )
+)
+
+echo [OK] Git: %GIT_CMD%
+echo.
 
 REM Clone or update repository
 echo [INFO] Clonage ou mise a jour du depot...
 if exist "%USERPROFILE%\zabbix-topology" (
     cd "%USERPROFILE%\zabbix-topology"
-    git pull >nul 2>&1
+    "%GIT_CMD%" pull >nul 2>&1
     cd ..
 ) else (
     cd "%USERPROFILE%"
-    git clone https://github.com/Marouane-K/zabbix-topology.git
+    "%GIT_CMD%" clone https://github.com/Marouane-K/zabbix-topology.git
 )
 echo [OK] Depot pret.
 echo.
@@ -116,21 +152,21 @@ echo.
 REM Install Python dependencies
 echo [INFO] Installation des dependances Python...
 cd "%USERPROFILE%\zabbix-topology\backend"
-%PYTHON_CMD% -m pip install --upgrade pip >nul 2>&1
-%PYTHON_CMD% -m pip install fastapi uvicorn httpx pydantic pydantic-settings python-multipart aiosqlite
+"%PYTHON_CMD%" -m pip install --upgrade pip >nul 2>&1
+"%PYTHON_CMD%" -m pip install fastapi uvicorn httpx pydantic pydantic-settings python-multipart aiosqlite
 echo [OK] Dependances Python installees.
 echo.
 
 REM Install Node.js dependencies
 echo [INFO] Installation des dependances Node.js...
 cd "%USERPROFILE%\zabbix-topology\frontend"
-call npm install
+call "%NPM_CMD%" install
 echo [OK] Dependances Node.js installees.
 echo.
 
 REM Build frontend
 echo [INFO] Construction du frontend...
-call npm run build
+call "%NPM_CMD%" run build
 echo [OK] Frontend construit.
 echo.
 
