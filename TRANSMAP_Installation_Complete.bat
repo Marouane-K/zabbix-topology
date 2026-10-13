@@ -3,20 +3,31 @@ echo ========================================
 echo TRANSMAP Zabbix Topology - Installation Complete
 echo ========================================
 echo.
+echo [INFO] Demarrage du script d'installation...
+echo.
+timeout /t 2 /nobreak >nul
 
 REM Check what needs to be installed
 set NEED_PYTHON=0
 set NEED_NODE=0
 set NEED_GIT=0
 
+echo [INFO] Verification de Python...
 python --version >nul 2>&1
 if %errorlevel% neq 0 set NEED_PYTHON=1
+if %NEED_PYTHON%==0 echo [OK] Python trouve. else echo [INFO] Python non trouve, installation necessaire.
 
+echo [INFO] Verification de Node.js...
 node --version >nul 2>&1
 if %errorlevel% neq 0 set NEED_NODE=1
+if %NEED_NODE%==0 echo [OK] Node.js trouve. else echo [INFO] Node.js non trouve, installation necessaire.
 
+echo [INFO] Verification de Git...
 git --version >nul 2>&1
 if %errorlevel% neq 0 set NEED_GIT=1
+if %NEED_GIT%==0 echo [OK] Git trouve. else echo [INFO] Git non trouve, installation necessaire.
+
+echo.
 
 REM If everything is installed, skip the installation prompt
 if %NEED_PYTHON%==0 if %NEED_NODE%==0 if %NEED_GIT%==0 (
