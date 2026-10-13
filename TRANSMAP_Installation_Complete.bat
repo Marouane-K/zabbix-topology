@@ -33,6 +33,8 @@ REM If everything is installed, skip the installation prompt
 if %NEED_PYTHON%==0 if %NEED_NODE%==0 if %NEED_GIT%==0 (
     echo [OK] Tous les outils requis sont deja installes.
     echo.
+    echo Appuyez sur ENTREE pour continuer l'installation des dependances...
+    pause >nul
     goto :continue_installation
 )
 
@@ -86,6 +88,8 @@ if %NEED_PYTHON%==1 (
         )
     )
     echo.
+    echo [INFO] Python installation terminee. Appuyez sur ENTREE pour continuer...
+    pause >nul
 )
 
 REM Install Node.js if needed
@@ -108,6 +112,8 @@ if %NEED_NODE%==1 (
         exit /b 0
     )
     echo.
+    echo [INFO] Node.js installation terminee. Appuyez sur ENTREE pour continuer...
+    pause >nul
 )
 
 REM Install Git if needed
@@ -117,10 +123,6 @@ if %NEED_GIT%==1 (
     if %errorlevel% neq 0 (
         echo [INFO] Winget a echoue ou l'outil est deja installe. Verification...
     )
-    REM Refresh environment variables after installation
-    echo [INFO] Mise a jour des variables d'environnement...
-    call refreshenv >nul 2>&1
-    timeout /t 5 /nobreak >nul
     REM Verify Git is working regardless of winget result
     git --version >nul 2>&1
     if %errorlevel% equ 0 (
@@ -132,6 +134,8 @@ if %NEED_GIT%==1 (
         pause
     )
     echo.
+    echo [INFO] Git installation terminee. Appuyez sur ENTREE pour continuer...
+    pause >nul
 )
 
 REM Refresh environment variables
@@ -141,6 +145,9 @@ for /f "usebackq tokens=*" %%i in (`cmd /c "echo %PATH%"`) do set NEW_PATH=%%i
 set PATH=%NEW_PATH%
 timeout /t 5 /nobreak >nul
 echo [OK] Variables d'environnement mises a jour.
+echo.
+echo [INFO] Appuyez sur ENTREE pour continuer l'installation des dependances...
+pause >nul
 echo.
 
 :continue_installation
