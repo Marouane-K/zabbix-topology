@@ -45,8 +45,43 @@ echo.
 
 REM Refresh PATH
 echo [INFO] Mise a jour des variables d'environnement...
-timeout /t 3 /nobreak >nul
+timeout /t 5 /nobreak >nul
 echo [OK] Variables mises a jour.
+echo.
+
+REM Verify tools are accessible
+echo [INFO] Verification que les outils sont accessibles...
+python --version >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [WARNING] Python n'est pas accessible dans cette session.
+    echo [INFO] Veuillez fermer cette fenetre et relancer le script.
+    echo.
+    echo Le PATH sera mis a jour apres le redemarrage de la fenetre.
+    pause
+    exit /b 0
+)
+
+node --version >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [WARNING] Node.js n'est pas accessible dans cette session.
+    echo [INFO] Veuillez fermer cette fenetre et relancer le script.
+    echo.
+    echo Le PATH sera mis a jour apres le redemarrage de la fenetre.
+    pause
+    exit /b 0
+)
+
+git --version >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [WARNING] Git n'est pas accessible dans cette session.
+    echo [INFO] Veuillez fermer cette fenetre et relancer le script.
+    echo.
+    echo Le PATH sera mis a jour apres le redemarrage de la fenetre.
+    pause
+    exit /b 0
+)
+
+echo [OK] Tous les outils sont accessibles.
 echo.
 
 REM Find Python command
