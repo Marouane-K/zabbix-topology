@@ -34,7 +34,7 @@ if %NEED_PYTHON%==0 if %NEED_NODE%==0 if %NEED_GIT%==0 (
     echo [OK] Tous les outils requis sont deja installes.
     echo.
     echo Appuyez sur ENTREE pour continuer l'installation des dependances...
-    pause >nul
+    pause
     goto :continue_installation
 )
 
@@ -52,7 +52,10 @@ echo L'installation sera effectuee automatiquement via Windows Package Manager (
 echo Ceci peut prendre plusieurs minutes.
 echo.
 echo Appuyez sur ENTREE pour continuer, ou FERMER cette fenetre pour annuler.
-pause >nul
+echo [DEBUG] En attente de ENTRÉE...
+pause
+echo [DEBUG] ENTRÉE reçu, continuation...
+echo.
 
 echo.
 echo [INFO] Debut de l'installation automatique...
@@ -89,7 +92,7 @@ if %NEED_PYTHON%==1 (
     )
     echo.
     echo [INFO] Python installation terminee. Appuyez sur ENTREE pour continuer...
-    pause >nul
+    pause
 )
 
 REM Install Node.js if needed
@@ -113,7 +116,7 @@ if %NEED_NODE%==1 (
     )
     echo.
     echo [INFO] Node.js installation terminee. Appuyez sur ENTREE pour continuer...
-    pause >nul
+    pause
 )
 
 REM Install Git if needed
@@ -135,7 +138,7 @@ if %NEED_GIT%==1 (
     )
     echo.
     echo [INFO] Git installation terminee. Appuyez sur ENTREE pour continuer...
-    pause >nul
+    pause
 )
 
 REM Refresh environment variables
@@ -147,7 +150,7 @@ timeout /t 5 /nobreak >nul
 echo [OK] Variables d'environnement mises a jour.
 echo.
 echo [INFO] Appuyez sur ENTREE pour continuer l'installation des dependances...
-pause >nul
+pause
 echo.
 
 :continue_installation
